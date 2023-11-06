@@ -1,0 +1,21 @@
+#pragma once
+#include "Node.h"
+#include <vector>
+#include <algorithm>
+
+
+
+class SearchTree
+{
+public:
+	void generateTree(const std::vector<std::string>& words, const std::vector<char>& wordDividers);
+	std::vector<std::string> getSubstrings(std::string s);
+	
+	std::vector<std::string> Search(std::string substring) const;
+	std::vector<char> dividers;
+private:
+	Node* root;
+	std::vector<std::string> words;
+};
+
+std::vector<int> Intersection(const std::vector<int>& a, const std::vector<int>& b);
