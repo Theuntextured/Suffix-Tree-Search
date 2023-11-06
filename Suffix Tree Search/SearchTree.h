@@ -5,16 +5,16 @@
 
 
 
-class SearchTree
+struct SearchTree
 {
 public:
 	void generateTree(const std::vector<std::string>& words, const std::vector<char>& wordDividers);
-	std::vector<std::string> getSubstrings(std::string s);
+	std::vector<std::string> getSubstrings(std::string s) const;
 	
 	std::vector<std::string> Search(std::string substring) const;
-	std::vector<char> dividers;
 private:
 	Node* root;
+	std::vector<char> dividers;
 	std::vector<std::string> words;
 };
 

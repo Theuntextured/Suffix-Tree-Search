@@ -1,6 +1,2 @@
 ﻿  SearchTree.cpp
-C:\Users\theun\source\repos\Suffix Tree Search\Suffix Tree Search\SearchTree.cpp(17,29): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\theun\source\repos\Suffix Tree Search\Suffix Tree Search\SearchTree.cpp(19,53): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\theun\source\repos\Suffix Tree Search\Suffix Tree Search\SearchTree.cpp(38,36): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\theun\source\repos\Suffix Tree Search\Suffix Tree Search\SearchTree.cpp(40,60): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-  Suffix Tree Search.vcxproj -> C:\Users\theun\source\repos\Suffix Tree Search\x64\Debug\Suffix Tree Search.exe
+  Suffix Tree Search.vcxproj -> C:\Users\theun\source\repos\Suffix-Tree-Search\x64\Debug\Suffix Tree Search.exe

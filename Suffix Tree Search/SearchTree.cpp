@@ -11,27 +11,34 @@ void SearchTree::generateTree(const std::vector<std::string>& words, const std::
 	int breakPoint = INT_MAX;
 
 	for (int i = 0; i < words.size(); ++i) {
-		auto p = words[i];
-		while(p.size())
+		auto p = getSubstrings(words[i]);
+		for(auto sub : p)
 		{
-			breakPoint = p.size() - 1;
-			for (auto d : dividers) {
-				breakPoint = min(breakPoint, p.find_first_of(d));
-			}
-
-			Suffix s(std::string(p.begin(), p.begin() + breakPoint + 1), i);
+			Suffix s(sub, i);
 			while (s.suffix.size() > 0) {
 				root->ProcessSuffix(s);
 				s.Shrink();
 			}
-			p.erase(p.begin(), p.begin() + breakPoint + 1);
 		}
 	}
 }
 
-std::vector<std::string> SearchTree::getSubstrings(std::string s)
+std::vector<std::string> SearchTree::getSubstrings(std::string s) const
 {
-	//todo and replace the subdivision method.
+	std::transform(s.begin(), s.end(), s.begin(), ::tolower);
+	std::string tmp;
+	std::vector< std::string> out;
+	for (auto i : s) {
+		if (std::count(dividers.begin(), dividers.end(), i)) {
+			out.push_back(tmp);
+			tmp = "";
+		}
+		else {
+			tmp += i;
+		}
+	}
+	if(tmp != "") out.push_back(tmp);
+	return out;
 }
 
 std::vector<std::string> SearchTree::Search(std::string substring) const
@@ -39,16 +46,9 @@ std::vector<std::string> SearchTree::Search(std::string substring) const
 	std::vector<int> indices;
 	std::vector<int> finalIndices;
 	bool skipUnion = true;
-	while (substring.size()) {
-		int breakPoint = substring.size();
-		for (auto d : dividers) {
-			breakPoint = min(breakPoint, substring.find_first_of(d));
-		}
-
-		Suffix suf(std::string(substring.begin(), substring.begin() + breakPoint));
-
-		std::cout << "Searching for: \"" << suf.suffix << "\"\n";
-		
+	auto subs = getSubstrings(substring);
+	for (auto i : subs) {
+		Suffix suf(i);
 		root->Search(suf, indices);
 		if (!skipUnion) {
 			finalIndices = Intersection(finalIndices, indices);
@@ -57,12 +57,10 @@ std::vector<std::string> SearchTree::Search(std::string substring) const
 			finalIndices = indices;
 		}
 		skipUnion = false;
-
-		substring.erase(substring.begin(), substring.begin() + min(substring.size(), breakPoint + 1));
 	}
+
 	std::vector<std::string> out;
 	for (auto i : finalIndices) out.push_back(words[i]);
-
 	return out;
 }
 
